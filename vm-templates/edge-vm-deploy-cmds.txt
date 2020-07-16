@@ -1,0 +1,27 @@
+/* Create iot hub device identity */
+az iot hub device-identity create --device-id <DeviceID> --edge-enabled --hub-name <IoTHubID>
+
+/* Create vm as virtual IoT Edge device */
+
+/* CLI cmd for Ubuntu 16.04 */
+az deployment group create \
+--resource-group iotdemos \
+--template-uri "https://raw.githubusercontent.com/jimlane/IoT-Demos/master/vm-templates/iot-edge-template1.json" \
+--parameters dnsLabelPrefix='edgevm-ubuntu2' \
+--parameters adminUsername='msadmin' \
+--parameters deviceConnectionString=$(az iot hub device-identity show-connection-string --device-id Edge4Ubuntu2 --hub-name iothub47 -o tsv) \
+--parameters authenticationType='password' \
+--parameters adminPasswordOrKey="P@ssw0rd1234"
+
+/* PWS cmd for Ubuntu 16.04 */
+$params = @{
+resourceGroup = "iotDemos"
+dnsLabelPrefix = "edgevm-ubuntu2"
+adminUsername = "msadmin"
+deviceConnectionString = GetAzIotHubDeviceConnectionString -DeviceId Edge4Ubuntu2 -IotHubName iothub47
+authenticationType = "password"
+adminPasswordOrKey = "P@ssw0rd1234"
+}
+New-AzureRmDeployment `
+    -TemplateFile "https://raw.githubusercontent.com/jimlane/IoT-Demos/master/vm-templates/iot-edge-template1.json" `
+    -TemplateParameterObject $params
