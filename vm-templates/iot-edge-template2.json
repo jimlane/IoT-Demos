@@ -60,7 +60,7 @@
       }
     },
     "variables": {
-      "imagePublisher": "Canonical",
+      "imagePublisher": "MicrosoftWindowsDesktop",
       "imageOffer": "Windows-10",
       "nicName": "[concat('nic-', parameters('dnsLabelPrefix'))]",
       "vmName": "[concat('vm-', parameters('dnsLabelPrefix'))]",
