@@ -240,7 +240,7 @@
           "name": "virtualMachineName/config-iotedge-runtime",
           "location": "[resourceGroup().location]",
           "dependsOn": [
-              "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'),copyindex())]",
+              "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]",
               "[parameters('fileURI')]"
           ],
           "tags": {
