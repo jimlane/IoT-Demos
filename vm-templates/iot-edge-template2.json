@@ -57,6 +57,30 @@
         "metadata": {
           "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
         }
+      },
+      "fileURI": {
+        "type": "string",
+        "metadata": {
+          "description": "location of PWS script to execute"
+        }
+      },
+      "scriptName": {
+        "type": "string",
+        "metadata": {
+          "description": "name of PWS script to execute"
+        }
+      },
+      "storageaccountName": {
+        "type": "string",
+        "metadata": {
+          "description": "name of storage account containing PWS script"
+        }
+      },
+      "storageaccountKey": {
+        "type": "string",
+        "metadata": {
+          "description": "access key for storage account"
+        }
       }
     },
     "variables": {
@@ -82,7 +106,8 @@
         "ProvisionVMAgent": true
       },
       "dcs": "[parameters('deviceConnectionString')]",
-      "networkSecurityGroupName": "[concat('nsg-', parameters('dnsLabelPrefix'))]"
+      "networkSecurityGroupName": "[concat('nsg-', parameters('dnsLabelPrefix'))]",
+      "scriptURI": ""
     },
     "resources": [{
         "apiVersion": "2015-06-15",
@@ -208,6 +233,37 @@
             }]
           }
         }
+      },
+      {
+          "apiVersion": "2018-06-01",
+          "type": "Microsoft.Compute/virtualMachines/extensions",
+          "name": "virtualMachineName/config-iotedge-runtime",
+          "location": "[resourceGroup().location]",
+          "dependsOn": [
+              "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'),copyindex())]",
+              "[parameters('fileURI')]"
+          ],
+          "tags": {
+              "displayName": "config-iot-edge-runtime"
+          },
+          "properties": {
+              "publisher": "Microsoft.Compute",
+              "type": "CustomScriptExtension",
+              "typeHandlerVersion": "1.10",
+              "autoUpgradeMinorVersion": true,
+              "settings": {
+                  "fileUris": [
+                      "[parameters('fileURI')]"
+                  ],
+                  "timestamp":123456789
+              },
+              "protectedSettings": {
+                  "commandToExecute": "[concat('powershell.exe ', parameters('scriptName'))]",
+                  "storageAccountName": "[parameters('storageaccountName')]",
+                  "storageAccountKey": "[parameters('storageaccountKey')]",
+                  "managedIdentity" : {}
+              }
+          }
       }
     ],
     "outputs": {
