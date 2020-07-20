@@ -253,7 +253,7 @@
               "autoUpgradeMinorVersion": true,
               "settings": {
                   "fileUris": [
-                      "[parameters('fileURI')]"
+                      "https://iotdemosdiag809.blob.core.windows.net/iotstuff/IotEdgeInstall1.ps1"
                   ],
                   "timestamp":123456789
               },
