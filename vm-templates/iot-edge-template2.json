@@ -252,13 +252,11 @@
               "typeHandlerVersion": "1.10",
               "autoUpgradeMinorVersion": true,
               "settings": {
-                  "fileUris": [
-                      "https://iotdemosdiag809.blob.core.windows.net/iotstuff/IotEdgeInstall1.ps1"
-                  ],
+                  "fileUris": ["https://iotdemosdiag809.blob.core.windows.net/iotstuff/IotEdgeInstall1.ps1"],
                   "timestamp":123456789
               },
               "protectedSettings": {
-                  "commandToExecute": "[concat('powershell.exe ', parameters('scriptName'))]",
+                  "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted', parameters('scriptName'))]",
                   "storageAccountName": "[parameters('storageaccountName')]",
                   "storageAccountKey": "[parameters('storageaccountKey')]",
                   "managedIdentity" : {}
