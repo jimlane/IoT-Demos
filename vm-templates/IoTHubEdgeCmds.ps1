@@ -10,6 +10,14 @@ Install-Module AzureRM.Resources
 Uninstall-Module AzureRM.Resources
 Logout-AzureRmAccount
 
+az vm create `
+    --resource-group iotdemos `
+    --name EdgeVMW10 `
+    --image MicrosoftWindowsDesktop:Windows-10:rs5-pro:latest `
+    --admin-username msadmin `
+    --admin-password P@ssw0rd1234 `
+    --size Standard_DS1_v2
+
 az iot hub device-identity show-connection-string --device-id Edge4W10 --hub-name iothub47
 
 $params = @{
@@ -18,10 +26,6 @@ adminUsername = "msadmin"
 deviceConnectionString = "HostName=iothub47.azure-devices.net;DeviceId=Edge4W10;SharedAccessKey=MEyQuz1qHSpkmmL5McfGtvwMR82gYkwSbjpWXL/Wgo8="
 authenticationType = "password"
 adminPasswordOrKey = "P@ssw0rd1234"
-fileURI = "https://iotdemosdiag809.blob.core.windows.net/iotstuff/IotEdgeInstall1.ps1"
-scriptName = "IotEdgeInstall1.ps1"
-storageaccountName = "iotdemosdiag809"
-storageaccountKey = "pnt9z9c3Jx88WZIkBg7iPAtMtXH5FDfkjaMVhXyGv4FOtBePwowcUYGRsX/51qvklhpNDLY/lEHFvVLeT/hA8w=="
 }
 New-AzResourceGroupDeployment `
     -ResourceGroupName iotdemos `

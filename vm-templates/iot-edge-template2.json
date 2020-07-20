@@ -29,7 +29,7 @@
       },
       "windowsOSVersion": {
         "type": "string",
-        "defaultValue": "20h1-pro",
+        "defaultValue": "rs5-pro",
         "metadata": {
           "description": "The windows version for the VM. This will pick a fully patched image of this given windows version."
         }
